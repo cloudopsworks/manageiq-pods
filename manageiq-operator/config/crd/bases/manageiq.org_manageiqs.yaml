@@ -122,6 +122,12 @@ spec:
                 description: Secret containing the image registry authentication information
                   needed for the manageiq images
                 type: string
+              ingressAnnotations:
+                additionalProperties:
+                  type: string
+                description: Optional Annotations to apply to generated Ingress objects
+                  by any of the controllers.
+                type: object
               initialAdminGroupName:
                 description: Group name to create with the super admin role. This
                   can be used to seed a group when using external authentication
@@ -248,6 +254,19 @@ spec:
               orchestratorMemoryRequest:
                 description: 'Orchestrator deployment memory request (default: no
                   limit)'
+                type: string
+              podAffinity:
+                description: Optional Pod Affinity to apply to generated containers.
+                type: string
+              podLabels:
+                additionalProperties:
+                  type: string
+                description: Optional Pod Labels to apply to Httpd, Kafka, Memcached,
+                  Orchestrator and PostgresQL Pods
+                type: object
+              podTolerations:
+                description: Optional Pod Tolerations to apply to generated PODs,
+                  it is important in many cases to have this
                 type: string
               postgresqlCpuLimit:
                 description: 'PostgreSQL deployment CPU limit (default: no limit)'
