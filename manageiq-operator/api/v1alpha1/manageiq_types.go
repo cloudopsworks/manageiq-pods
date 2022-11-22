@@ -35,6 +35,22 @@ type ManageIQSpec struct {
 	// +optional
 	AppAnnotations map[string]string `json:"appAnnotations,omitempty"`
 
+	// Optional Annotations to apply to generated Ingress objects by any of the controllers.
+	// +optional
+	IngressAnnotations map[string]string `json:"ingressAnnotations,omitempty"`
+
+	// Optional Pod Labels to apply to Httpd, Kafka, Memcached, Orchestrator and PostgresQL Pods
+	// +optional
+	PodLabels map[string]string `json:"podLabels,omitempty"`
+
+	// Optional Pod Affinity to apply to generated containers.
+	// +optional
+	PodAffinity string `json:"podAffinity"`
+
+	// Optional Pod Tolerations to apply to generated PODs, it is important in many cases to have this
+	// +optional
+	PodTolerations string `json:"podTolerations"`
+
 	// Domain name for the external route. Used for external authentication configuration
 	ApplicationDomain string `json:"applicationDomain"`
 

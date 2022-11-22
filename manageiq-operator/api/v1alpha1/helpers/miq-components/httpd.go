@@ -5,7 +5,6 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
-
 	miqv1alpha1 "github.com/ManageIQ/manageiq-pods/manageiq-operator/api/v1alpha1"
 	tlstools "github.com/ManageIQ/manageiq-pods/manageiq-operator/api/v1alpha1/helpers/tlstools"
 	routev1 "github.com/openshift/api/route/v1"
@@ -141,6 +140,7 @@ func Ingress(cr *miqv1alpha1.ManageIQ, scheme *runtime.Scheme) (*networkingv1.In
 			},
 		}
 		addAppLabel(cr.Spec.AppName, &ingress.ObjectMeta)
+		addAnnotations(cr.Spec.IngressAnnotations, &ingress.ObjectMeta)
 		return nil
 	}
 
@@ -409,7 +409,6 @@ func HttpdDeployment(client client.Client, cr *miqv1alpha1.ManageIQ, scheme *run
 		"app":  cr.Spec.AppName,
 		"name": "httpd",
 	}
-
 	deployment := &appsv1.Deployment{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      "httpd",
@@ -439,6 +438,7 @@ func HttpdDeployment(client client.Client, cr *miqv1alpha1.ManageIQ, scheme *run
 			Type: "Recreate",
 		}
 		addAnnotations(cr.Spec.AppAnnotations, &deployment.Spec.Template.ObjectMeta)
+		addLabels(cr.Spec.PodLabels, &deployment.Spec.Template.ObjectMeta)
 		deployment.Spec.Template.Spec.Containers = []corev1.Container{container}
 
 		configMapVolumeSource := corev1.ConfigMapVolumeSource{LocalObjectReference: corev1.LocalObjectReference{Name: "httpd-configs"}}

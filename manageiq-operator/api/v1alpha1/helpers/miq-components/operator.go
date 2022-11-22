@@ -20,6 +20,7 @@ func ManageOperator(cr *miqv1alpha1.ManageIQ, client client.Client) (*appsv1.Dep
 		addAppLabel(cr.Spec.AppName, &deployment.ObjectMeta)
 		addAppLabel(cr.Spec.AppName, &deployment.Spec.Template.ObjectMeta)
 		addBackupLabel(cr.Spec.BackupLabelName, &deployment.ObjectMeta)
+		addLabels(cr.Spec.PodLabels, &deployment.Spec.Template.ObjectMeta)
 
 		return nil
 	}

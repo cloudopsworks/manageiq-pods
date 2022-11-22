@@ -291,6 +291,7 @@ func KafkaDeployment(cr *miqv1alpha1.ManageIQ, scheme *runtime.Scheme) (*appsv1.
 		addBackupAnnotation("kafka-data", &deployment.Spec.Template.ObjectMeta)
 		addBackupLabel(cr.Spec.BackupLabelName, &deployment.ObjectMeta)
 		addBackupLabel(cr.Spec.BackupLabelName, &deployment.Spec.Template.ObjectMeta)
+		addLabels(cr.Spec.PodLabels, &deployment.Spec.Template.ObjectMeta)
 		var repNum int32 = 1
 		deployment.Spec.Replicas = &repNum
 		deployment.Spec.Strategy = appsv1.DeploymentStrategy{
@@ -374,6 +375,7 @@ func ZookeeperDeployment(cr *miqv1alpha1.ManageIQ, scheme *runtime.Scheme) (*app
 		addBackupAnnotation("zookeeper-data", &deployment.Spec.Template.ObjectMeta)
 		addBackupLabel(cr.Spec.BackupLabelName, &deployment.ObjectMeta)
 		addBackupLabel(cr.Spec.BackupLabelName, &deployment.Spec.Template.ObjectMeta)
+		addLabels(cr.Spec.PodLabels, &deployment.Spec.Template.ObjectMeta)
 		var repNum int32 = 1
 		deployment.Spec.Replicas = &repNum
 		deployment.Spec.Strategy = appsv1.DeploymentStrategy{

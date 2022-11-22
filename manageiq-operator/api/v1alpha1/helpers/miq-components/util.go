@@ -93,6 +93,17 @@ func addAnnotations(annotations map[string]string, meta *metav1.ObjectMeta) {
 	}
 }
 
+func addLabels(labels map[string]string, meta *metav1.ObjectMeta) {
+	if len(labels) > 0 {
+		if meta.Labels == nil {
+			meta.Labels = make(map[string]string)
+		}
+		for key, value := range labels {
+			meta.Labels[key] = value
+		}
+	}
+}
+
 func InternalCertificatesSecret(cr *miqv1alpha1.ManageIQ, client client.Client) *corev1.Secret {
 	name := cr.Spec.InternalCertificatesSecret
 

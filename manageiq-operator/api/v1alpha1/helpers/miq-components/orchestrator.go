@@ -303,6 +303,7 @@ func OrchestratorDeployment(cr *miqv1alpha1.ManageIQ, scheme *runtime.Scheme, cl
 			return err
 		}
 		addAppLabel(cr.Spec.AppName, &deployment.ObjectMeta)
+		addLabels(cr.Spec.PodLabels, &deployment.Spec.Template.ObjectMeta)
 		var repNum int32 = 1
 		deployment.Spec.Replicas = &repNum
 		deployment.Spec.Strategy = appsv1.DeploymentStrategy{
