@@ -27,11 +27,11 @@ jobs:
           manageiq-operator/go.sum
         commit-message: Update go dependencies
         branch: update_go_dependencies
-        author: ManageIQ Bot <bot@manageiq.org>
-        committer: ManageIQ Bot <bot@manageiq.org>
+        author: CloudOpsWorks Bot <bot@cloudopsworks.co>
+        committer: CloudOpsWorks Bot <bot@cloudopsworks.co>
         delete-branch: true
         labels: dependencies
-        push-to-fork: miq-bot/manageiq-pods
+        push-to-fork: cloudopsworks-bot/manageiq-pods
         title: Update go dependencies
         body: Update the operator dependencies in go.mod
         token: ${{ secrets.DEPLOY_TOKEN }}
