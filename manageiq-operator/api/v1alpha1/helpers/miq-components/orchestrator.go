@@ -313,6 +313,8 @@ func OrchestratorDeployment(cr *miqv1alpha1.ManageIQ, scheme *runtime.Scheme, cl
 		var termSecs int64 = 90
 		deployment.Spec.Template.Spec.ServiceAccountName = cr.Spec.AppName + "-orchestrator"
 		deployment.Spec.Template.Spec.TerminationGracePeriodSeconds = &termSecs
+		deployment.Spec.Template.Spec.Affinity = cr.Spec.PodAffinity
+		deployment.Spec.Template.Spec.Tolerations = cr.Spec.PodTolerations
 
 		updateOrchestratorEnv(cr, &deployment.Spec.Template.Spec.Containers[0])
 		deployment.Spec.Template.Spec.Containers[0].Image = cr.Spec.OrchestratorImage

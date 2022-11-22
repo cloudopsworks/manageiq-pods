@@ -280,6 +280,8 @@ func PostgresqlDeployment(cr *miqv1alpha1.ManageIQ, client client.Client, scheme
 		addAnnotations(cr.Spec.AppAnnotations, &deployment.Spec.Template.ObjectMeta)
 		deployment.Spec.Template.Spec.Containers = []corev1.Container{container}
 		deployment.Spec.Template.Spec.ServiceAccountName = defaultServiceAccountName(cr.Spec.AppName)
+		deployment.Spec.Template.Spec.Affinity = cr.Spec.PodAffinity
+		deployment.Spec.Template.Spec.Tolerations = cr.Spec.PodTolerations
 		deployment.Spec.Template.Spec.Volumes = []corev1.Volume{
 			corev1.Volume{
 				Name: "miq-pgdb-volume",

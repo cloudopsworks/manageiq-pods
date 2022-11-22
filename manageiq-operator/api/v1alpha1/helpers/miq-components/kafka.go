@@ -384,6 +384,8 @@ func ZookeeperDeployment(cr *miqv1alpha1.ManageIQ, scheme *runtime.Scheme) (*app
 		addAnnotations(cr.Spec.AppAnnotations, &deployment.Spec.Template.ObjectMeta)
 		deployment.Spec.Template.Spec.Containers = []corev1.Container{container}
 		deployment.Spec.Template.Spec.ServiceAccountName = defaultServiceAccountName(cr.Spec.AppName)
+		deployment.Spec.Template.Spec.Affinity = cr.Spec.PodAffinity
+		deployment.Spec.Template.Spec.Tolerations = cr.Spec.PodTolerations
 		deployment.Spec.Template.Spec.Volumes = []corev1.Volume{
 			corev1.Volume{
 				Name: "zookeeper-data",

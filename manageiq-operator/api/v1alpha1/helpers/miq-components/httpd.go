@@ -440,6 +440,8 @@ func HttpdDeployment(client client.Client, cr *miqv1alpha1.ManageIQ, scheme *run
 		addAnnotations(cr.Spec.AppAnnotations, &deployment.Spec.Template.ObjectMeta)
 		addLabels(cr.Spec.PodLabels, &deployment.Spec.Template.ObjectMeta)
 		deployment.Spec.Template.Spec.Containers = []corev1.Container{container}
+		deployment.Spec.Template.Spec.Affinity = cr.Spec.PodAffinity
+		deployment.Spec.Template.Spec.Tolerations = cr.Spec.PodTolerations
 
 		configMapVolumeSource := corev1.ConfigMapVolumeSource{LocalObjectReference: corev1.LocalObjectReference{Name: "httpd-configs"}}
 		deployment.Spec.Template.Spec.Volumes = addOrUpdateVolume(deployment.Spec.Template.Spec.Volumes, corev1.Volume{Name: "httpd-config", VolumeSource: corev1.VolumeSource{ConfigMap: &configMapVolumeSource}})

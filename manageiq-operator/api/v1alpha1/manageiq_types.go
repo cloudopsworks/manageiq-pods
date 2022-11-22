@@ -19,6 +19,7 @@ package v1alpha1
 import (
 	"errors"
 	"fmt"
+	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"strings"
 )
@@ -45,11 +46,11 @@ type ManageIQSpec struct {
 
 	// Optional Pod Affinity to apply to generated containers.
 	// +optional
-	PodAffinity string `json:"podAffinity"`
+	PodAffinity *v1.Affinity `json:"podAffinity,omitempty"`
 
 	// Optional Pod Tolerations to apply to generated PODs, it is important in many cases to have this
 	// +optional
-	PodTolerations string `json:"podTolerations"`
+	PodTolerations []v1.Toleration `json:"podTolerations,omitempty"`
 
 	// Domain name for the external route. Used for external authentication configuration
 	ApplicationDomain string `json:"applicationDomain"`
